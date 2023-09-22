@@ -1,15 +1,16 @@
-let block = document.querySelector('.reveal')
+let blocks = document.querySelectorAll('.reveal')
 
-function isVisible(e) {
-  const {top, bottom} = e.getBoundingClientRect()
-
-  if (top > window.innerHeight || bottom < 0) {
-    return block.classList.remove('reveal_active');
+function isVisible() {
+  for (let i = 0; i < blocks.length; i++) {
+    const {top, bottom} = blocks[i].getBoundingClientRect()
+    if (top > window.innerHeight || bottom < 0) {
+      blocks[i].classList.remove('reveal_active')
+    } else {
+      blocks[i].classList.add('reveal_active')
+    }
   }
-
-  return block.classList.add('reveal_active');
 }
 
 setInterval(() => {
-  isVisible(block)
+  isVisible()
 }, 1000);
