@@ -1,33 +1,33 @@
-let input = document.querySelector('.tasks__input')
-let inputBtn = document.querySelector('.tasks__add')
-let tasksList = document.querySelector('.tasks__list')
+let input = document.querySelector('.tasks__input');
+let inputBtn = document.querySelector('.tasks__add');
+let tasksList = document.querySelector('.tasks__list');
 
 inputBtn.addEventListener('click', (e) => {
-  e.preventDefault()
-  let task = document.createElement('div')
-  let taskTitle = document.createElement('div')
-  let btnRemove = document.createElement('a')
-  
-  task.classList.add('task')
-  taskTitle.classList.add('task__title')
-  btnRemove.href = '#'
-  btnRemove.classList.add('task__remove')
+  e.preventDefault();
+  const inputValue = input.value.trim();
+  if (inputValue) {
+    let task = document.createElement('div');
+    let taskTitle = document.createElement('div');
+    let btnRemove = document.createElement('a');
 
-  taskTitle.innerHTML = input.value
-  btnRemove.innerHTML = '&times;'
+    task.classList.add('task');
+    taskTitle.classList.add('task__title');
+    btnRemove.href = '#';
+    btnRemove.classList.add('task__remove');
 
-  task.appendChild(taskTitle)
-  task.appendChild(btnRemove)
-  
-  tasksList.appendChild(task)
-  taskRemover();
-})
+    taskTitle.textContent = inputValue;
+    btnRemove.innerHTML = '&times;';
 
-function taskRemover() {
-  let taskRemoveBtns = document.querySelectorAll('.task__remove')
-  for (let i = 0; i < taskRemoveBtns.length; i++) {
-    taskRemoveBtns[i].onclick = (e) => {
-      e.currentTarget.parentNode.remove()
-    }
+    task.appendChild(taskTitle);
+    task.appendChild(btnRemove);
+
+    tasksList.appendChild(task);
+    input.value = '';
   }
-}
+});
+
+tasksList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('task__remove')) {
+    e.target.parentNode.remove();
+  }
+});
